@@ -1,5 +1,7 @@
 <template>
   <div class="about">
+    <input type="text" v-model="searchText" />
+    <button @click="searchAddress">搜尋</button>
     <div id="map"></div>
   </div>
 </template>
@@ -23,14 +25,15 @@ const directories = [
   "data2.json",
   "data3.json",
 ];
-const center = ref([]);
+const center = ref([25.07552, 121.37633]);
 const map = ref();
 const data = ref();
+const searchText = ref("");
 // 成功取得GPS
 function successGPS(position) {
   const lat = position.coords.latitude;
   const lng = position.coords.longitude;
-  center.value = [lat, lng];
+  // center.value = [lat, lng];
   triggerLeaflet();
 }
 // 無法取得GPS
@@ -86,10 +89,22 @@ const triggerLeaflet = () => {
   }).addTo(map.value);
   // 新增地圖工具
   L.control.locate().addTo(map.value);
-  // L.marker(center.value)
-  //   .addTo(map.value)
-  //   .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
-  //   .openPopup();
+};
+const searchAddress = async () => {
+  const res = await axios.get(
+    `https://geocoder.ls.hereapi.com/6.2/geocode.json?searchtext=${searchText.value}&gen=9&apiKey=QZgz8hAfXGkETmKH8sZvZe7keKJqm20mVUMI4aX9eyM`
+  );
+  const resultData = res.data.Response.View[0].Result;
+  for (const result of resultData) {
+    L.marker([
+      result.Location.DisplayPosition.Latitude,
+      result.Location.DisplayPosition.Longitude,
+    ])
+      .addTo(map.value)
+      .bindPopup("A pretty CSS3 popup.<br> Easily customizable.")
+      .openPopup();
+    console.log(result);
+  }
 };
 </script>
 <style>
