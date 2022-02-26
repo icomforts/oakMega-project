@@ -67,7 +67,7 @@ const signOut = () => {
         </div>
       </div>
     </div>
-    <router-link to="/about" class="entryBtn">進入地圖</router-link>
+    <router-link to="/map" class="entryBtn">進入地圖</router-link>
   </div>
 </template>
 <style lang="scss" scoped>

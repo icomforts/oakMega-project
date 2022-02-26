@@ -17,13 +17,8 @@ onMounted(() => {
 @import "@/assets/base.css";
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
   font-weight: normal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
 }
 </style>
