@@ -6,7 +6,7 @@ export async function googleInit() {
       gapi.auth2
         .init({
           client_id:
-            "401934269274-kjhavou8ae7uep1lokgmatcg3g5ui98h.apps.googleusercontent.com",
+            "401934269274-2gol1g2ov581rt0okjek364fne16hphn.apps.googleusercontent.com",
         })
         .then(() => {
           let GoogleAuth = gapi.auth2.getAuthInstance();
