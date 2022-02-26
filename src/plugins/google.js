@@ -6,7 +6,7 @@ export async function googleInit() {
       gapi.auth2
         .init({
           client_id:
-            "401934269274-2gol1g2ov581rt0okjek364fne16hphn.apps.googleusercontent.com",
+            "401934269274-tfin2v3k20838ref6h0aetidgpka7olk.apps.googleusercontent.com",
         })
         .then(() => {
           let GoogleAuth = gapi.auth2.getAuthInstance();
@@ -27,6 +27,13 @@ export async function googleInit() {
     });
   });
 }
+export const googleLogOut = () => {
+  let auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log("User signed out.");
+    googleInit();
+  });
+};
 const signinChanged = (status) => {
   const authStore = useAuthStore();
   authStore.setLoginState("google", status);

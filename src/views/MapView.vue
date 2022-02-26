@@ -1,5 +1,9 @@
 <template>
   <div class="about">
+    <div class="accountBox">
+      <div @click="googleLogOut">google logout</div>
+      <div @click="fbLogout">facebook logout</div>
+    </div>
     <div class="mapBox">
       <div id="map"></div>
     </div>
@@ -16,7 +20,8 @@ import { onMounted, ref, provide } from "vue";
 import StopList from "@/components/map/StopList.vue";
 import Search from "@/components/map/Search.vue";
 import { useAuthStore } from "@/stores/auth";
-
+import { googleLogOut } from "@/plugins/google";
+import { fbLogout } from "@/plugins/fb";
 import mapApi from "@/apis/map";
 
 const authStore = useAuthStore();
@@ -194,6 +199,9 @@ provide("getUserInfo", getUserInfo);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+.accountBox {
+  color: black;
 }
 .stopListBox {
   display: flex;
