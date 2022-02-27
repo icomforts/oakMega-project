@@ -30,7 +30,7 @@ const authStore = useAuthStore();
             >
               fb login
             </div>
-            <div class="fb" @click="fbLogout" v-else>fb logout</div>
+            <div class="logout" @click="fbLogout" v-else>登出</div>
           </div>
         </div>
         <div class="google">
@@ -51,11 +51,11 @@ const authStore = useAuthStore();
               v-show="!authStore.loginState.google.status"
             ></div>
             <div
-              class="signOutBtn"
+              class="logout"
               @click="googleLogOut"
               v-if="authStore.loginState.google.status"
             >
-              signOut
+              登出
             </div>
           </div>
         </div>
@@ -115,6 +115,13 @@ const authStore = useAuthStore();
             align-items: center;
             justify-content: center;
             height: 40px;
+          }
+          .logout {
+            background: rgb(202, 202, 202);
+            padding: 0.25rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            color: rgb(126, 126, 126);
           }
         }
       }
