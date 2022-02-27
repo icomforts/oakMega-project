@@ -1,21 +1,12 @@
-<script setup>
-import { useAuthStore } from "@/stores/auth";
-import { googleInit, googleLogOut } from "@/plugins/google";
-import { facebookInit, fbLogin, fbLogout } from "@/plugins/fb";
-
-const authStore = useAuthStore();
-</script>
 
 <template>
   <div class="loginView">
+    <h1>新北市都市更新地點查詢</h1>
     <div class="loginModel">
       <div class="dashboard">
         <div class="fb">
           <span>Facebook</span>
-          <div
-            class="status"
-            :class="{ login: authStore.loginState.facebook.status }"
-          >
+          <div class="status" v-if="authStore.loginState.facebook.status">
             <img
               v-if="authStore.loginState.facebook.status"
               :src="`https://graph.facebook.com/${authStore.loginState.facebook.data.id}/picture?width=80`"
@@ -28,17 +19,14 @@ const authStore = useAuthStore();
               @click="fbLogin"
               v-if="!authStore.loginState.facebook.status"
             >
-              fb login
+              登入
             </div>
-            <div class="logout" @click="fbLogout" v-else>登出</div>
+            <LogoutButton platform="facebook" v-else> 登出 </LogoutButton>
           </div>
         </div>
         <div class="google">
           <span>Google</span>
-          <div
-            class="status"
-            :class="{ login: authStore.loginState.google.status }"
-          >
+          <div class="status" v-if="authStore.loginState.google.status">
             <img
               v-if="authStore.loginState.google.status"
               :src="authStore.loginState.google.data.avatar"
@@ -50,13 +38,13 @@ const authStore = useAuthStore();
               id="my-signin2"
               v-show="!authStore.loginState.google.status"
             ></div>
-            <div
-              class="logout"
-              @click="googleLogOut"
+
+            <LogoutButton
+              platform="google"
               v-if="authStore.loginState.google.status"
             >
               登出
-            </div>
+            </LogoutButton>
           </div>
         </div>
       </div>
@@ -64,13 +52,26 @@ const authStore = useAuthStore();
     </div>
   </div>
 </template>
+<script setup>
+import { useAuthStore } from "@/stores/auth";
+import { fbLogin } from "@/plugins/fb";
+import LogoutButton from "@/components/LogoutButton.vue";
+
+const authStore = useAuthStore();
+</script>
+
 <style lang="scss" scoped>
 .loginView {
+  background: var(--color-background);
   width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  h1 {
+    margin: 1rem 0;
+  }
   .loginModel {
     display: flex;
     width: 400px;
@@ -86,10 +87,11 @@ const authStore = useAuthStore();
       display: flex;
       height: 100%;
       justify-content: space-around;
+      padding: 1rem;
       & > div {
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
         flex-direction: column;
         span {
           font-size: 1.5rem;
@@ -99,7 +101,7 @@ const authStore = useAuthStore();
           height: 80px;
           border-radius: 6px;
           overflow: hidden;
-          background: red;
+          background: rgb(255, 255, 255);
           &.login {
             background: greenyellow;
           }
@@ -110,18 +112,21 @@ const authStore = useAuthStore();
           }
         }
         .buttons {
-          div {
+          > div {
             display: flex;
             align-items: center;
             justify-content: center;
             height: 40px;
-          }
-          .logout {
-            background: rgb(202, 202, 202);
-            padding: 0.25rem 1rem;
-            border-radius: 4px;
+            width: 80px;
             cursor: pointer;
-            color: rgb(126, 126, 126);
+            box-shadow: 0 2px 4px 0 rgb(0 0 0 / 25%);
+            &:hover {
+              box-shadow: 0 0 3px 3px rgb(66 133 244 / 30%);
+            }
+            &.fb {
+              background: #4285f4;
+              color: #ffffff;
+            }
           }
         }
       }
@@ -141,19 +146,11 @@ const authStore = useAuthStore();
         background: rgb(58, 58, 58);
       }
     }
-    // .buttons {
-    //   display: flex;
-    //   .platform {
-    //     display: flex;
-    //     align-items: center;
-    //     .signOutBtn {
-    //       background: gray;
-    //       padding: 0.5rem;
-    //       border-radius: 0.25rem;
-    //       cursor: pointer;
-    //     }
-    //   }
-    // }
   }
+}
+</style>
+<style lang="scss">
+.abcRioButtonIcon {
+  display: none;
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
-  <div class="about">
-    <div class="accountBox">
-      <div @click="googleLogOut">google logout</div>
-      <div @click="fbLogout">facebook logout</div>
+  <div class="mapView">
+    <div class="navbar">
+      <router-link to="/">
+        <i class="fa-solid fa-house fa-2xl"></i>
+      </router-link>
     </div>
+
     <div class="mapBox">
       <div id="map"></div>
     </div>
@@ -19,9 +21,9 @@
 import { onMounted, ref, provide } from "vue";
 import StopList from "@/components/map/StopList.vue";
 import Search from "@/components/map/Search.vue";
+
 import { useAuthStore } from "@/stores/auth";
-import { googleLogOut } from "@/plugins/google";
-import { fbLogout } from "@/plugins/fb";
+
 import mapApi from "@/apis/map";
 
 const authStore = useAuthStore();
@@ -192,49 +194,52 @@ provide("setCenter", setCenter);
 provide("getUserInfo", getUserInfo);
 </script>
 <style lang="scss" scoped>
-.about {
+.mapView {
   min-height: 100vh;
   width: 100%;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-.accountBox {
-  color: black;
-}
-.stopListBox {
-  display: flex;
-  justify-content: center;
-}
-.searchBox {
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-}
-.mapBox {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-}
-#map {
-  border-radius: 10px;
-  overflow: hidden;
-  height: 50vh;
-  width: 100%;
-  max-width: 60vw;
-  border: solid 10px rgb(86, 165, 211);
+  .navbar {
+    padding: 0.5rem;
+    display: flex;
+  }
+  .stopListBox {
+    display: flex;
+    justify-content: center;
+  }
+  .searchBox {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .mapBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
+  #map {
+    border-radius: 10px;
+    overflow: hidden;
+    height: 50vh;
+    width: 100%;
+    max-width: 60vw;
+    border: solid 10px rgb(86, 165, 211);
+  }
 }
 </style>
 <style lang="scss">
-.userPopup {
-  display: flex;
-  justify-content: space-between;
-  img {
-    border-radius: 100%;
-    width: 60px;
-    height: 60px;
+.mapView {
+  .userPopup {
+    display: flex;
+    justify-content: space-between;
+    img {
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+    }
   }
 }
 </style>

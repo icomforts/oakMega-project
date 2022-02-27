@@ -41,7 +41,7 @@ const signinChanged = (status) => {
 const randerButton = (gapi) => {
   gapi.signin2.render("my-signin2", {
     scope: "profile email",
-    width: 120,
+    width: 80,
     height: 40,
     longtitle: false,
     theme: "dark",

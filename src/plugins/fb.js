@@ -54,7 +54,6 @@ export const fbLogin = () => {
   );
 };
 export const fbLogout = () => {
-  console.log(":sss");
   FB.logout((response) => {
     statusChangeCallback(response);
   });
