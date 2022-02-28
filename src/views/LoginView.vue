@@ -9,7 +9,7 @@
           <div class="status" v-if="authStore.loginState.facebook.status">
             <img
               v-if="authStore.loginState.facebook.status"
-              :src="`https://graph.facebook.com/${authStore.loginState.facebook.data.id}/picture?width=80`"
+              :src="`https://graph.facebook.com/${authStore.loginState.facebook.data?.id}/picture?width=80`"
               alt="avatar"
             />
           </div>
